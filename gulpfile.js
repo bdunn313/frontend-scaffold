@@ -23,16 +23,30 @@ gulp.task('styles', function(){
     .pipe(minifycss())
     .pipe(rename({suffix: '.min'}))
     .pipe(gulp.dest('dist/assets/css'))
+    .pipe(livereload(server))
     .pipe(notify({ message: 'Styles task complete' }));
 });
 
 // Scripts
-gulp.tasl('scripts', function(){
+gulp.task('scripts', function(){
   return gulp.src('app/scripts/**/*.js')
     .pipe(jshint())
     .pipe(jshint.reporter('default'))
-    .pipe(contact('main.js'))
+    .pipe(concat('main.js'))
+    .pipe(rename({suffix: '.min'}))
+    .pipe(uglify())
     .pipe(gulp.dest('dist/assets/js'))
+    .pipe(livereload(server))
+    .pipe(notify({ message: 'Script task complete' }));
+});
+
+// Images
+gulp.task('images', function() {
+  return gulp.src('app/images/**/*')
+    .pipe(cache(imagemin({ optimizationLevel: 3, progressive: true, interlaced: true })))
+    .pipe(gulp.dest('dist/assets/img'))
+    .pipe(livereload(server))
+    .pipe(notify({ message: 'Images task complete' }));
 });
 
 gulp.task('default', function(){
