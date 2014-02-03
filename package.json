@@ -10,6 +10,18 @@
   "license": "MIT",
   "devDependencies": {
     "gulp-util": "~2.2.14",
-    "gulp": "~3.5.1"
+    "gulp": "~3.5.1",
+    "gulp-livereload": "~0.3.1",
+    "gulp-concat": "~2.1.7",
+    "gulp-rename": "~0.2.2",
+    "gulp-clean": "~0.2.4",
+    "gulp-minify-css": "~0.2.0",
+    "tiny-lr": "0.0.5",
+    "gulp-notify": "~0.4.0",
+    "gulp-autoprefixer": "0.0.6",
+    "gulp-uglify": "~0.2.0",
+    "gulp-imagemin": "~0.1.4",
+    "gulp-cache": "~0.1.1",
+    "gulp-less": "~1.2.1"
   }
 }
