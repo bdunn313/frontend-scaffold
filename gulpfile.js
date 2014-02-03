@@ -1,3 +1,8 @@
+// Vars
+var EXPRESS_PORT    = 4000,
+    EXPRESS_ROOT    = __dirname + '/dist',
+    LIVERELOAD_PORT = 35729;
+
 // Gulp and Plugins
 var gulp          = require('gulp'),
     gutil         = require('gulp-util'),
@@ -16,6 +21,31 @@ var gulp          = require('gulp'),
     lr            = require('tiny-lr'),
     server        = lr();
 
+/*************
+* Functions
+**************/
+// Express Server
+function startExpress() {
+  var express = require('express'),
+      app     = express();
+
+  app.use(require('connect-livereload')());
+  app.use(express.static(EXPRESS_ROOT));
+  app.listen(EXPRESS_PORT);
+  console.log('App server listening at http://localhost:' + EXPRESS_PORT + '/');
+}
+// Live Reload Server
+function startLiveReload() {
+  server.listen(LIVERELOAD_PORT, function (error){
+    if (error) {
+      return console.log(error);
+    };
+  });
+}
+
+/*************
+* Tasks
+**************/
 // Styles
 gulp.task('styles', function(){
   return gulp.src('app/styles/main.less')
@@ -49,6 +79,32 @@ gulp.task('images', function() {
     .pipe(notify({ message: 'Images task complete' }));
 });
 
-gulp.task('default', function(){
-  // The Default Task
+// HTML
+gulp.task('html', function() {
+  return gulp.src('app/**/*.html')
+    .pipe(gulp.dest('dist'))
+    .pipe(notify({ message: 'Deployed HTML' }))
+});
+
+// Clean
+gulp.task('clean', function() {
+  return gulp.src(['dist/assets/css', 'dist/assets/js', 'dist/assets/img'], {read: false})
+    .pipe(clean());
+});
+
+gulp.task('default', ['clean'], function(){
+  gulp.start('styles', 'scripts', 'images', 'html');
+});
+
+gulp.task('dev', function(){
+  startExpress();
+  startLiveReload();
+
+  gulp.watch('app/scripts/**/*.js', ['scripts']);
+
+  gulp.watch('app/styles/**/*.less', ['styles']);
+
+  gulp.watch('app/images/**/*', ['images']);
+
+  gulp.watch('app/**/*.html', ['html']);
 });

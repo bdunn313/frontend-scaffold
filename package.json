@@ -23,6 +23,8 @@
     "gulp-imagemin": "~0.1.4",
     "gulp-cache": "~0.1.1",
     "gulp-less": "~1.2.1",
-    "gulp-jshint": "~1.3.4"
+    "gulp-jshint": "~1.3.4",
+    "express": "~3.4.8",
+    "connect-livereload": "~0.3.2"
   }
 }
