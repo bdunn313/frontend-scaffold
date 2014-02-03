@@ -16,6 +16,12 @@ Once you are good to go, clone the project, and install the node/bower dependenc
     cd project-name
     npm install && bower install
 
+First, just run the default gulp task to initialize the project
+
+    gulp
+    
+Whenever you want to build out your production code, just run the default command.
+
 Fire up a local dev server on port 4000 with live-reload and asset watching by running:
 
     gulp dev
@@ -32,8 +38,8 @@ Kudos
 
 These articles helped me write up the gulpfile:
 
-- [Getting Started with Gulp](http://markgoodyear.com/2014/01/getting-started-with-gulp/) by @markgoodyear
-- [Livereload Magic with Gulp](http://rhumaric.com/2014/01/livereload-magic-gulp-style/) by @rhumaric
+- [Getting Started with Gulp](http://markgoodyear.com/2014/01/getting-started-with-gulp/) by [markgoodyear](http://github.com/markgoodyear)
+- [Livereload Magic with Gulp](http://rhumaric.com/2014/01/livereload-magic-gulp-style/) by [rhumaric](http://github.com/rhumaric)
 
 License
 -------
