@@ -1,0 +1,23 @@
+{
+  "name": "frontend-scaffold",
+  "version": "0.0.1",
+  "authors": [
+    "Brad Dunn <brad@braddunn.com>"
+  ],
+  "description": "A Basic frontend project scaffold",
+  "keywords": [
+    "scaffold",
+    "frontend"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "~3.1.0"
+  }
+}
