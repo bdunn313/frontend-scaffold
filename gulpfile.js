@@ -1,7 +1,12 @@
-// Vars
+// Constants
 var EXPRESS_PORT    = 4000,
     EXPRESS_ROOT    = __dirname + '/dist',
-    LIVERELOAD_PORT = 35729;
+    LIVERELOAD_PORT = 35729,
+    BASE_SRC_DIR    = 'app/',
+    JAVASCRIPTS_SRC = BASE_SRC_DIR + 'scripts',
+    LESS_SRC        = BASE_SRC_DIR + 'styles',
+    LESS_MAIN_FILE  = LESS_SRC + '/main.less',
+    IMAGES_SRC      = BASE_SRC_DIR + 'images';
 
 // Gulp and Plugins
 var gulp          = require('gulp'),
@@ -48,7 +53,7 @@ function startLiveReload() {
 **************/
 // Styles
 gulp.task('styles', function(){
-  return gulp.src('app/styles/main.less')
+  return gulp.src(LESS_MAIN_FILE)
     .pipe(less())
     .pipe(minifycss())
     .pipe(rename({suffix: '.min'}))
@@ -59,7 +64,7 @@ gulp.task('styles', function(){
 
 // Scripts
 gulp.task('scripts', function(){
-  return gulp.src('app/scripts/**/*.js')
+  return gulp.src(JAVASCRIPTS_SRC + '/**/*.js')
     .pipe(jshint())
     .pipe(jshint.reporter('default'))
     .pipe(concat('main.js'))
@@ -72,7 +77,7 @@ gulp.task('scripts', function(){
 
 // Images
 gulp.task('images', function() {
-  return gulp.src('app/images/**/*')
+  return gulp.src(IMAGES_SRC + '/**/*')
     .pipe(cache(imagemin({ optimizationLevel: 3, progressive: true, interlaced: true })))
     .pipe(gulp.dest('dist/assets/img'))
     .pipe(livereload(server))
@@ -81,7 +86,7 @@ gulp.task('images', function() {
 
 // HTML
 gulp.task('html', function() {
-  return gulp.src('app/**/*.html')
+  return gulp.src(BASE_SRC_DIR + '**/*.html')
     .pipe(gulp.dest('dist'))
     .pipe(notify({ message: 'Deployed HTML' }))
 });
@@ -100,11 +105,11 @@ gulp.task('dev', function(){
   startExpress();
   startLiveReload();
 
-  gulp.watch('app/scripts/**/*.js', ['scripts']);
+  gulp.watch(JAVASCRIPTS_SRC + '/**/*.js', ['scripts']);
 
-  gulp.watch('app/styles/**/*.less', ['styles']);
+  gulp.watch(LESS_SRC + '/**/*.less', ['styles']);
 
-  gulp.watch('app/images/**/*', ['images']);
+  gulp.watch(IMAGES_SRC + '/**/*', ['images']);
 
-  gulp.watch('app/**/*.html', ['html']);
+  gulp.watch(BASE_SRC_DIR + '/**/*.html', ['html']);
 });
