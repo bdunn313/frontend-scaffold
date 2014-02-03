@@ -93,12 +93,13 @@ gulp.task('images', function() {
 gulp.task('html', function() {
   return gulp.src(BASE_SRC_DIR + '**/*.html')
     .pipe(gulp.dest('dist'))
+    .pipe(livereload(server))
     .pipe(notify({ message: 'Deployed HTML' }))
 });
 
 // Clean
 gulp.task('clean', function() {
-  return gulp.src(['dist/assets/css', 'dist/assets/js', 'dist/assets/img'], {read: false})
+  return gulp.src(['dist/assets/css', 'dist/assets/js', 'dist/assets/img', 'dist/**/*.html'], {read: false})
     .pipe(clean());
 });
 
