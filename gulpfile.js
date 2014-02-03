@@ -8,6 +8,10 @@ var EXPRESS_PORT    = 4000,
     LESS_MAIN_FILE  = LESS_SRC + '/main.less',
     IMAGES_SRC      = BASE_SRC_DIR + 'images';
 
+// Try to open in the browser?
+var openInBrowser = false,
+    web_browser   = 'firefox'; //chrome, google-chrome, etc. Chrome does not appear to work on Mac.
+
 // Gulp and Plugins
 var gulp          = require('gulp'),
     gutil         = require('gulp-util'),
@@ -24,7 +28,8 @@ var gulp          = require('gulp'),
     cache         = require('gulp-cache'),
     livereload    = require('gulp-livereload'),
     lr            = require('tiny-lr'),
-    server        = lr();
+    server        = lr(),
+    gopen         = require('gulp-open');
 
 /*************
 * Functions
@@ -104,6 +109,9 @@ gulp.task('default', ['clean'], function(){
 gulp.task('dev', function(){
   startExpress();
   startLiveReload();
+
+  gulp.src('dist/index.html')
+    .pipe(gopen("", { url: "http://localhost:" + EXPRESS_PORT, app: web_browser  }))
 
   gulp.watch(JAVASCRIPTS_SRC + '/**/*.js', ['scripts']);
 
