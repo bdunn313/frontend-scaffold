@@ -108,17 +108,20 @@ gulp.task('default', ['clean'], function(){
 });
 
 gulp.task('dev', function(){
+  // Server
   startExpress();
   startLiveReload();
-
-  gulp.src('dist/index.html')
-    .pipe(gopen("", { url: "http://localhost:" + EXPRESS_PORT, app: web_browser  }))
-
+  // Open up a browser?
+  if (openInBrowser === true)
+  {
+    gulp.src('dist/index.html')
+      .pipe(gopen("", { url: "http://localhost:" + EXPRESS_PORT, app: web_browser  }))
+  }
+  // Every file you create, 
+  // Every change you make, 
+  // I'll be watching you!
   gulp.watch(JAVASCRIPTS_SRC + '/**/*.js', ['scripts']);
-
   gulp.watch(LESS_SRC + '/**/*.less', ['styles']);
-
   gulp.watch(IMAGES_SRC + '/**/*', ['images']);
-
   gulp.watch(BASE_SRC_DIR + '/**/*.html', ['html']);
 });
