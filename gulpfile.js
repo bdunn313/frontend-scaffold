@@ -97,6 +97,18 @@ gulp.task('html', function() {
     .pipe(notify({ message: 'Deployed HTML' }))
 });
 
+// Vendor Stuff
+gulp.task('vendor', function(){
+  gulp.src('bower_components/jquery/jquery.min.js')
+    .pipe(gulp.dest('dist/assets/js/vendor'));
+
+  gulp.src('bower_components/bootstrap/dist/js/bootstrap.min.js')
+    .pipe(gulp.dest('dist/assets/js/vendor'));
+
+  gulp.src('bower_components/bootstrap/dist/fonts/**/*')
+    .pipe(gulp.dest('dist/assets/fonts'));
+});
+
 // Clean
 gulp.task('clean', function() {
   return gulp.src(['dist/assets/css', 'dist/assets/js', 'dist/assets/img', 'dist/**/*.html'], {read: false})
@@ -104,10 +116,11 @@ gulp.task('clean', function() {
 });
 
 gulp.task('default', ['clean'], function(){
-  gulp.start('styles', 'scripts', 'images', 'html');
+  gulp.start('styles', 'scripts', 'images', 'html', 'vendor');
 });
 
 gulp.task('dev', function(){
+  gulp.run('default');
   // Server
   startExpress();
   startLiveReload();
