@@ -99,7 +99,10 @@ gulp.task('html', function() {
 
 // Vendor Stuff
 gulp.task('vendor', function(){
-  gulp.src('bower_components/jquery/jquery.min.js')
+  gulp.src('bower_components/jquery/dist/jquery.min.js')
+    .pipe(gulp.dest('dist/assets/js/vendor'));
+
+  gulp.src('bower_components/jquery/dist/jquery.min.map')
     .pipe(gulp.dest('dist/assets/js/vendor'));
 
   gulp.src('bower_components/bootstrap/dist/js/bootstrap.min.js')
